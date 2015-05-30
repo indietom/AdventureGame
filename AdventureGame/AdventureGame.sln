@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventureGame", "AdventureGame\AdventureGame\AdventureGame.csproj", "{EC043B8F-EF28-4B64-9E01-0CFB61D89F91}"
+EndProject
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "AdventureGameContent", "AdventureGame\AdventureGameContent\AdventureGameContent.contentproj", "{09155F2A-88D0-456F-A1E5-E56D112F1D31}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EC043B8F-EF28-4B64-9E01-0CFB61D89F91}.Debug|x86.ActiveCfg = Debug|x86
+		{EC043B8F-EF28-4B64-9E01-0CFB61D89F91}.Debug|x86.Build.0 = Debug|x86
+		{EC043B8F-EF28-4B64-9E01-0CFB61D89F91}.Release|x86.ActiveCfg = Release|x86
+		{EC043B8F-EF28-4B64-9E01-0CFB61D89F91}.Release|x86.Build.0 = Release|x86
+		{09155F2A-88D0-456F-A1E5-E56D112F1D31}.Debug|x86.ActiveCfg = Debug|x86
+		{09155F2A-88D0-456F-A1E5-E56D112F1D31}.Release|x86.ActiveCfg = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
