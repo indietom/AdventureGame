@@ -30,6 +30,21 @@ namespace AdventureGame
 
         public bool destroy;
 
+        public int Frame(int cell)
+        {
+            return 32 * cell + cell + 1;
+        }
+
+        public int Frame(int cell, int size)
+        {
+            return size * cell + cell + 1;
+        }
+
+        public virtual void Update()
+        {
+            if (destroy) Game1.gameObjectsToRemove.Add(this);
+        }
+
         public void DrawSprite(SpriteBatch spriteBatch, Texture2D spritesheet)
         {
             spriteBatch.Draw(spritesheet, pos, new Rectangle(spriteCoords.X, spriteCoords.Y, size.X, size.Y), color, rotation, orgin, scale, spriteEffect, depth);

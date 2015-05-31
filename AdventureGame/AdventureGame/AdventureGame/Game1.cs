@@ -23,11 +23,17 @@ namespace AdventureGame
             graphics.PreferredBackBufferWidth = 640;
         }
 
-        Camera camera;
+        internal static Camera camera;
+
+        List<GameObject> gameObjects = new List<GameObject>();
+
+        internal static List<GameObject> gameObjectsToRemove = new List<GameObject>();
+        internal static List<GameObject> gameObjectsToAdd = new List<GameObject>();
 
         protected override void Initialize()
         {
             camera = new Camera();
+            gameObjectsToAdd.Add(new Player());
             base.Initialize();
         }
 
@@ -48,7 +54,24 @@ namespace AdventureGame
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
-            
+
+            foreach(GameObject gm in gameObjectsToAdd)
+            {
+                gameObjects.Add(gm);
+            }
+            gameObjectsToAdd.Clear();
+
+            foreach (GameObject gm in gameObjectsToRemove)
+            {
+                gameObjects.Remove(gm);
+            }
+            gameObjectsToRemove.Clear();
+
+            foreach (GameObject gm in gameObjects)
+            {
+                gm.Update();
+            }
+
             base.Update(gameTime);
         }
 
@@ -56,7 +79,10 @@ namespace AdventureGame
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, camera.GetTransform(GraphicsDevice));
-
+            foreach(GameObject gm in gameObjects)
+            {
+                gm.DrawSprite(spriteBatch, spritesheet);
+            }
             spriteBatch.End();
             base.Draw(gameTime);
         }
