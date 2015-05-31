@@ -13,8 +13,8 @@ namespace AdventureGame
         public Vector2 pos;
         public Vector2 orgin;
 
-        Point spriteCoords;
-        Point size;
+        public Point spriteCoords;
+        public Point size;
 
         public float scale;
         public float angle;
@@ -23,6 +23,14 @@ namespace AdventureGame
         public float speed;
         public float rotation;
         public float depth;
+
+        public byte direction;
+
+        public short animationCount;
+        public short maxAnimationCount;
+        public short currentFrame;
+        public short minFrame;
+        public short maxFrame;
 
         public SpriteEffects spriteEffect;
 
@@ -47,7 +55,20 @@ namespace AdventureGame
 
         public void DrawSprite(SpriteBatch spriteBatch, Texture2D spritesheet)
         {
-            spriteBatch.Draw(spritesheet, pos, new Rectangle(spriteCoords.X, spriteCoords.Y, size.X, size.Y), color, rotation, orgin, scale, spriteEffect, depth);
+            if(size.X > 0 && size.Y > 0) spriteBatch.Draw(spritesheet, pos, new Rectangle(spriteCoords.X, spriteCoords.Y, size.X, size.Y), color, Globals.DegreeToRadian(rotation), orgin, scale, spriteEffect, depth);
+        }
+
+        public void Animate()
+        {
+            if(animationCount >= maxAnimationCount)
+            {
+                currentFrame += 1;
+                if(currentFrame >= maxFrame)
+                {
+                    currentFrame = minFrame;
+                }
+                animationCount = 0;
+            }
         }
 
         public void AngleMath()
@@ -73,17 +94,7 @@ namespace AdventureGame
 
         public Rectangle HitBox()
         {
-            return new Rectangle(0, 0, 0, 0);
-        }
-
-        public Point GetSpriteCoords()
-        {
-            return spriteCoords;
-        }
-
-        public Point GetSize()
-        {
-            return size;
+            return new Rectangle((int)pos.X, (int)pos.Y, size.X * (int)scale, size.X * (int)scale);
         }
 
         public void SetSpriteCoords(int x2, int y2)

@@ -25,8 +25,7 @@ namespace AdventureGame
 
         internal static Camera camera;
 
-        List<GameObject> gameObjects = new List<GameObject>();
-
+        internal static List<GameObject> gameObjects = new List<GameObject>();
         internal static List<GameObject> gameObjectsToRemove = new List<GameObject>();
         internal static List<GameObject> gameObjectsToAdd = new List<GameObject>();
 

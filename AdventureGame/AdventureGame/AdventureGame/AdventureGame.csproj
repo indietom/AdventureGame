@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Camera.cs" />
+    <Compile Include="EquipableItem.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="Player.cs" />
