@@ -29,6 +29,8 @@ namespace AdventureGame
         internal static List<GameObject> gameObjectsToRemove = new List<GameObject>();
         internal static List<GameObject> gameObjectsToAdd = new List<GameObject>();
 
+        EquipableItem test = new EquipableItem("test.txt");
+
         protected override void Initialize()
         {
             camera = new Camera();
