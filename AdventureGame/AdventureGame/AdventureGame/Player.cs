@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace AdventureGame
@@ -19,6 +21,8 @@ namespace AdventureGame
         KeyboardState keyboard;
         KeyboardState prevKeyboard;
 
+        EquipableItem[] equipedItems = new EquipableItem[2];
+
         public Player()
         {
             pos = new Vector2(0, 0);
@@ -31,6 +35,8 @@ namespace AdventureGame
             maxAnimationCount = 8;
             maxFrame = 4;
             inputActive = true;
+            equipedItems[0] = new EquipableItem("test.txt");
+            equipedItems[1] = new EquipableItem("test.txt");
         }
 
         void Input()
@@ -71,6 +77,16 @@ namespace AdventureGame
                 animationCount = 0;
                 currentFrame = 0;
             }
+
+            if(keyboard.IsKeyDown(Keys.X) && !prevKeyboard.IsKeyDown(Keys.X) && equipedItems[0].useDelayCount <= 0)
+            {
+                equipedItems[0].Use();
+            }
+
+            if (keyboard.IsKeyDown(Keys.Z) && !prevKeyboard.IsKeyDown(Keys.Z) && equipedItems[1].useDelayCount <= 0)
+            {
+                equipedItems[1].Use();
+            }
         }
 
         void Movment()
@@ -91,16 +107,32 @@ namespace AdventureGame
 
         public override void Update()
         {
-            //Game1.camera.LerpToTarget(pos + new Vector2(16, 16), 0.1f);
+            Game1.camera.LerpToTarget(pos + new Vector2(16, 16), 0.1f);
 
             Animate();
             if(!dead) SetSpriteCoords(Frame(currentFrame), Frame(direction));
 
+            for (int i = 0; i < equipedItems.Count(); i++)
+            {
+                equipedItems[i].UpdateDraw();
+            }
+            
             Movment();
             if(inputActive) Input();
             HealthUpdate();
 
             base.Update();
+        }
+
+        public override void DrawSprite(SpriteBatch spriteBatch, Texture2D spritesheet)
+        {
+            base.DrawSprite(spriteBatch, spritesheet);
+            for (int i = 0; i < equipedItems.Count(); i++)
+            {
+                equipedItems[i].DrawSprite(spriteBatch, spritesheet);
+                spriteBatch.Draw(spritesheet, new Vector2(equipedItems[i].pos.X, equipedItems[i].pos.Y), new Rectangle(equipedItems[i].spriteCoords.X, equipedItems[i].spriteCoords.Y, equipedItems[i].size.X, equipedItems[i].size.Y), Color.White, Globals.DegreeToRadian(equipedItems[i].rotation), equipedItems[i].orgin, 1.0f, SpriteEffects.None, 0);
+            }
+            spriteBatch.Draw(spritesheet, new Vector2(0, 0), new Rectangle(123, 213, 123, 213), Color.White);
         }
     }
 }

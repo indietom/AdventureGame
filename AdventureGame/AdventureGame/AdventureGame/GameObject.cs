@@ -53,9 +53,9 @@ namespace AdventureGame
             if (destroy) Game1.gameObjectsToRemove.Add(this);
         }
 
-        public void DrawSprite(SpriteBatch spriteBatch, Texture2D spritesheet)
+        public virtual void DrawSprite(SpriteBatch spriteBatch, Texture2D spritesheet)
         {
-            if(size.X > 0 && size.Y > 0) spriteBatch.Draw(spritesheet, pos, new Rectangle(spriteCoords.X, spriteCoords.Y, size.X, size.Y), color, Globals.DegreeToRadian(rotation), orgin, scale, spriteEffect, depth);
+            spriteBatch.Draw(spritesheet, pos, new Rectangle(spriteCoords.X, spriteCoords.Y, size.X, size.Y), color, Globals.DegreeToRadian(rotation), orgin, scale, spriteEffect, depth);
         }
 
         public void Animate()

@@ -30,6 +30,7 @@ namespace AdventureGame
         public EquipableItem(string path)
         {
             Load(path);
+            orgin = new Vector2(OrginalSize.X / 2, OrginalSize.Y / 2);
         }
 
         public void Load(string path)
@@ -79,6 +80,9 @@ namespace AdventureGame
                     case "r":
                         durability = short.Parse(currentLine.Split(':')[1]);
                         break;
+                    case "p":
+                        spriteCoords = new Point(Convert.ToInt32(currentLine.Split(':')[1]), Convert.ToInt32(currentLine.Split(':')[2]));
+                        break;
                 }
                 
             }
@@ -105,22 +109,26 @@ namespace AdventureGame
             {
                 if(gm.direction == 0)
                 {
-                    pos = gm.pos + new Vector2(-size.X/2, 0);
+                    if(size.Y == 16) pos = gm.pos + new Vector2(-size.X/2, size.Y);
+                    else pos = gm.pos + new Vector2(-size.X / 2, size.Y/2 + 16 - orgin.X/2);
                     rotation = -180;
                 }
                 else if(gm.direction == 1)
                 {
-                    pos = gm.pos + new Vector2(32, 0);
+                    if (size.Y == 16) pos = gm.pos + new Vector2(32+size.X / 2, size.Y);
+                    else pos = gm.pos + new Vector2(32 + size.X / 2, size.Y / 2 + 16 - orgin.X / 2);
                     rotation = 0;
                 }
                 else if(gm.direction == 2)
                 {
-                    pos = gm.pos + new Vector2(0, -size.X/2);
+                    if (size.Y == 16) pos = gm.pos + new Vector2(16-2, -size.Y/2);
+                    else pos = gm.pos + new Vector2(size.X, -size.Y);
                     rotation = -90;
                 }
                 else if(gm.direction == 3)
                 {
-                    pos = gm.pos + new Vector2(0, 32);
+                    if (size.Y == 16) pos = gm.pos + new Vector2(16, size.Y / 2+32);
+                    else pos = gm.pos + new Vector2(size.X, 32+size.Y);
                     rotation = -270;
                 }
             }
