@@ -10,6 +10,8 @@ namespace AdventureGame
     {
         byte type;
 
+        float cosCount;
+
         public Loot(Vector2 pos2, byte type2)
         {
             pos = pos2;
@@ -23,6 +25,9 @@ namespace AdventureGame
 
         public override void Update()
         {
+            pos.Y += (float)Math.Sin(20 * cosCount + 30);
+            cosCount += 0.01f;
+
             foreach (Player p in Game1.gameObjects.Where(item => item is Player))
             {
                 if(p.HitBox().Intersects(HitBox()))

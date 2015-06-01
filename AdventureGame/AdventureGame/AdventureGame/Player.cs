@@ -16,6 +16,9 @@ namespace AdventureGame
         bool dead;
         bool inputActive;
 
+        short hitCount;
+        short maxHitCount;
+
         public short money;
 
         KeyboardState keyboard;
@@ -36,6 +39,7 @@ namespace AdventureGame
             maxFrame = 4;
             inputActive = true;
             maxHealth = 4;
+            maxHitCount = 32;
             equipedItems[0] = new EquipableItem("test.txt");
             equipedItems[1] = new EquipableItem("test.txt");
         }
@@ -79,12 +83,12 @@ namespace AdventureGame
                 currentFrame = 0;
             }
 
-            if(keyboard.IsKeyDown(Keys.X) && !prevKeyboard.IsKeyDown(Keys.X) && equipedItems[0].useDelayCount <= 0)
+            if (keyboard.IsKeyDown(Keys.X) && !prevKeyboard.IsKeyDown(Keys.X) && equipedItems[0].useDelayCount <= 0 && equipedItems[1].useDelayCount <= 0)
             {
                 equipedItems[0].Use();
             }
 
-            if (keyboard.IsKeyDown(Keys.Z) && !prevKeyboard.IsKeyDown(Keys.Z) && equipedItems[1].useDelayCount <= 0)
+            if (keyboard.IsKeyDown(Keys.Z) && !prevKeyboard.IsKeyDown(Keys.Z) && equipedItems[0].useDelayCount <= 0 && equipedItems[1].useDelayCount <= 0)
             {
                 equipedItems[1].Use();
             }
@@ -103,7 +107,27 @@ namespace AdventureGame
 
         void HealthUpdate()
         {
+            if(hitCount >= 1)
+            {
+                hitCount += 1;
+                color = Color.Red;
+                inputActive = false;
+            }
+            if(hitCount >= maxHitCount)
+            {
+                hitCount = 0;
+                color = Color.White;
+                inputActive = true;
+            }
 
+            foreach (Enemy e in Game1.gameObjects.Where(item => item is Enemy))
+            {
+                if(e.HitBox().Intersects(HitBox()) && hitCount <= 0)
+                {
+                    hitCount = 1;
+                    health -= 1;
+                }
+            }
         }
 
         public override void Update()
@@ -145,7 +169,6 @@ namespace AdventureGame
             for (int i = 0; i < equipedItems.Count(); i++)
             {
                 equipedItems[i].DrawSprite(spriteBatch, spritesheet);
-                //spriteBatch.Draw(spritesheet, new Vector2(equipedItems[i].pos.X, equipedItems[i].pos.Y), new Rectangle(equipedItems[i].spriteCoords.X, equipedItems[i].spriteCoords.Y, equipedItems[i].size.X, equipedItems[i].size.Y), Color.White, Globals.DegreeToRadian(equipedItems[i].rotation), equipedItems[i].orgin, 1.0f, SpriteEffects.None, 0);
             }
             spriteBatch.Draw(spritesheet, new Vector2(0, 0), new Rectangle(123, 213, 123, 213), Color.White);
         }

@@ -23,9 +23,12 @@ namespace AdventureGame
         
         public byte useDelayCount;
         public byte useDelay;
+        public byte projectileType;
 
         public short durabilityCount;
-        public short durability;    
+        public short durability;
+
+        public float projectileSpeed;
 
         public EquipableItem(string path)
         {
@@ -85,6 +88,12 @@ namespace AdventureGame
                     case "p":
                         spriteCoords = new Point(Convert.ToInt32(currentLine.Split(':')[1]), Convert.ToInt32(currentLine.Split(':')[2]));
                         break;
+                    case "t":
+                        projectileType = byte.Parse(currentLine.Split(':')[1]);
+                        break;
+                    case "j":
+                        projectileSpeed = float.Parse(currentLine.Split(':')[1]);
+                        break;
                 }
                 
             }
@@ -106,11 +115,7 @@ namespace AdventureGame
                 {
                     if (e.HitBox().Intersects(HitBox()) && size.X > 0)
                     {
-                        if(e.hitCount <= 0)
-                        {
-                            e.health -= damege;
-                        }
-                        e.hitCount = 1;
+                        e.Hit(damege);
                     }
                 }
             }
@@ -156,6 +161,10 @@ namespace AdventureGame
                     else pos = p.pos + new Vector2(size.X - orgin.X / 2, 32 + size.Y+4) + p.Vel();
                     rotation = -270;
                 }
+            }
+            if ((UseType == UseType.Distance || UseType == UseType.Magic) && durabilityCount == 2)
+            {
+                Game1.gameObjectsToAdd.Add(new Projectile(pos, projectileSpeed, rotation, (byte)damege, projectileType, false));
             }
         }
     }

@@ -36,10 +36,50 @@ namespace AdventureGame
                 chanceOfLoot = (byte)random.Next(5);
                 if(chanceOfLoot == 3)
                 {
-                    typeOfLoot = (byte)random.Next(Globals.maxTypesOfLoot+1);
+                    typeOfLoot = (byte)random.Next(Globals.maxTypesOfLoot);
+                    Game1.gameObjectsToAdd.Add(new Loot(pos+new Vector2(16, 16), typeOfLoot));
                 }
                 if(!hasDeathAnimation) destroy = true;
             }
+        }
+
+        public void RandomMovment()
+        {
+            Random random = new Random(); 
+
+            if(speed > 0) turnCount += 1;
+
+            if(turnCount >= maxTurnCount)
+            {
+                direction = (byte)random.Next(0, 4);
+                turnCount = 0;
+            }
+
+            if(direction == 0)
+            {
+                pos.X += speed;
+            }
+            if(direction == 1)
+            {
+                pos.X -= speed;
+            }
+            if (direction == 2)
+            {
+                pos.Y -= speed;
+            }
+            if (direction == 3)
+            {
+                pos.Y += speed;
+            }
+        }
+
+        public void Hit(sbyte damege2)
+        {
+            if (hitCount <= 0)
+            {
+                health -= damege2;
+            }
+            hitCount = 1;
         }
 
         public void HitUpdate()
@@ -65,7 +105,7 @@ namespace AdventureGame
             else
             {
                 speed = 0;
-                scale = Globals.Lerp(scale, 1.3f, 0.07f);
+                scale = Globals.Lerp(scale, 1.1f, 0.07f);
             }
         }
     }
