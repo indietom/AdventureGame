@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 using Microsoft.Xna.Framework;
 
 namespace AdventureGame
@@ -19,13 +20,70 @@ namespace AdventureGame
         public Point OrginalSize { private set; get; }
 
         public sbyte damege;
-        public sbyte useDelayCount;
-        public sbyte useDelay;
+        
+        public byte useDelayCount;
+        public byte useDelay;
 
         public short durabilityCount;
         public short durability;    
 
-        //TODO: read info from file or code? 
+        public EquipableItem(string path)
+        {
+            Load(path);
+        }
+
+        public void Load(string path)
+        {
+            int amountOfLines = File.ReadAllLines(path).Count();
+
+            string currentLine;
+
+            StreamReader sr = new StreamReader(path);
+            for (int i = 0; i < amountOfLines; i++)
+            {
+                currentLine = sr.ReadLine();
+                switch(currentLine.Split(':')[0])
+                {
+                    case "n":
+                        Name += currentLine.Split(':')[1];
+                        break;
+                    case "d":
+                        Description += currentLine.Split(':')[1];
+                        break;
+                    case "u":
+                        if (currentLine.Split(':')[1] == "melee")
+                        {
+                            UseType = UseType.Melee;
+                        }
+                        else if (currentLine.Split(':')[1] == "distance")
+                        {
+                            UseType = UseType.Distance;
+                        }
+                        else
+                        {
+                            UseType = UseType.Magic;
+                        }
+                        break;
+                    case "i":
+                        IconSpirteCoords = new Point(Convert.ToInt32(currentLine.Split(':')[1]), Convert.ToInt32(currentLine.Split(':')[2]));
+                        break;
+                    case "o":
+                        OrginalSize = new Point(Convert.ToInt32(currentLine.Split(':')[1]), Convert.ToInt32(currentLine.Split(':')[2]));
+                        break;
+                    case "h":
+                        damege = sbyte.Parse(currentLine.Split(':')[1]);
+                        break;
+                    case "s":
+                        useDelay = byte.Parse(currentLine.Split(':')[1]);
+                        break;
+                    case "r":
+                        durability = short.Parse(currentLine.Split(':')[1]);
+                        break;
+                }
+                
+            }
+            sr.Dispose();
+        }
 
         public virtual void Use()
         {
