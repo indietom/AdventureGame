@@ -109,26 +109,26 @@ namespace AdventureGame
             {
                 if(gm.direction == 0)
                 {
-                    if(size.Y == 16) pos = gm.pos + new Vector2(-size.X/2, size.Y);
-                    else pos = gm.pos + new Vector2(-size.X / 2, size.Y/2 + 16 - orgin.X/2);
+                    if (size.Y == 16) pos = gm.pos + new Vector2(-size.X / 2, size.Y) + gm.Vel();
+                    else pos = gm.pos + new Vector2(-size.X / 2, size.Y/2 + 16 - orgin.X/2) + gm.Vel();
                     rotation = -180;
                 }
                 else if(gm.direction == 1)
                 {
-                    if (size.Y == 16) pos = gm.pos + new Vector2(32+size.X / 2, size.Y);
-                    else pos = gm.pos + new Vector2(32 + size.X / 2, size.Y / 2 + 16 - orgin.X / 2);
+                    if (size.Y == 16) pos = gm.pos + new Vector2(32 + size.X / 2, size.Y) + gm.Vel();
+                    else pos = gm.pos + new Vector2(32 + size.X / 2, size.Y / 2 + 16 - orgin.X / 2) + gm.Vel();
                     rotation = 0;
                 }
                 else if(gm.direction == 2)
                 {
-                    if (size.Y == 16) pos = gm.pos + new Vector2(16-2, -size.Y/2);
-                    else pos = gm.pos + new Vector2(size.X, -size.Y);
+                    if (size.Y == 16) pos = gm.pos + new Vector2(16 - 2, -size.Y / 2) + gm.Vel();
+                    else pos = gm.pos + new Vector2(size.X, -size.Y) + gm.Vel();
                     rotation = -90;
                 }
                 else if(gm.direction == 3)
                 {
-                    if (size.Y == 16) pos = gm.pos + new Vector2(16, size.Y / 2+32);
-                    else pos = gm.pos + new Vector2(size.X, 32+size.Y);
+                    if (size.Y == 16) pos = gm.pos + new Vector2(16, size.Y / 2 + 32) + gm.Vel();
+                    else pos = gm.pos + new Vector2(size.X, 32 + size.Y) + gm.Vel();
                     rotation = -270;
                 }
             }
