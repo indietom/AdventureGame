@@ -8,6 +8,8 @@ namespace AdventureGame
 {
     class Globals
     {
+        public static byte maxTypesOfLoot;
+
         public static float Lerp(float s, float e, float t)
         {
             return s + t * (e - s);

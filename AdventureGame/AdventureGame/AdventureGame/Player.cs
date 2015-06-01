@@ -13,10 +13,10 @@ namespace AdventureGame
     {
         float friction;
 
-        sbyte health;
-
         bool dead;
         bool inputActive;
+
+        public short money;
 
         KeyboardState keyboard;
         KeyboardState prevKeyboard;
@@ -32,9 +32,10 @@ namespace AdventureGame
             scale = 1f;
             friction = 0.7f;
             speed = 2;
-            maxAnimationCount = 8;
+            maxAnimationCount = 4;
             maxFrame = 4;
             inputActive = true;
+            maxHealth = 4;
             equipedItems[0] = new EquipableItem("test.txt");
             equipedItems[1] = new EquipableItem("test.txt");
         }
@@ -107,18 +108,32 @@ namespace AdventureGame
 
         public override void Update()
         {
-            Game1.camera.LerpToTarget(pos + new Vector2(16, 16), 0.1f);
+            Game1.camera.LerpToTarget(pos + new Vector2(16, 16), 0.3f);
 
             Animate();
-            if(!dead) SetSpriteCoords(Frame(currentFrame), Frame(direction));
+            if (!dead) SetSpriteCoords(Frame(currentFrame), Frame(direction));
 
             for (int i = 0; i < equipedItems.Count(); i++)
             {
                 equipedItems[i].UpdateDraw();
+                equipedItems[i].Update();
             }
-            
+
+            for (int i = 0; i < equipedItems.Count(); i++)
+            {
+                if(equipedItems[i].durabilityCount >= 1)
+                {
+                    inputActive = false;
+                    currentFrame = 4;
+                }
+                if(equipedItems[i].durabilityCount >= equipedItems[i].durability-1)
+                {
+                    inputActive = true;
+                }
+            }
+
             Movment();
-            if(inputActive) Input();
+            if (inputActive) Input();
             HealthUpdate();
 
             base.Update();
@@ -130,7 +145,7 @@ namespace AdventureGame
             for (int i = 0; i < equipedItems.Count(); i++)
             {
                 equipedItems[i].DrawSprite(spriteBatch, spritesheet);
-                spriteBatch.Draw(spritesheet, new Vector2(equipedItems[i].pos.X, equipedItems[i].pos.Y), new Rectangle(equipedItems[i].spriteCoords.X, equipedItems[i].spriteCoords.Y, equipedItems[i].size.X, equipedItems[i].size.Y), Color.White, Globals.DegreeToRadian(equipedItems[i].rotation), equipedItems[i].orgin, 1.0f, SpriteEffects.None, 0);
+                //spriteBatch.Draw(spritesheet, new Vector2(equipedItems[i].pos.X, equipedItems[i].pos.Y), new Rectangle(equipedItems[i].spriteCoords.X, equipedItems[i].spriteCoords.Y, equipedItems[i].size.X, equipedItems[i].size.Y), Color.White, Globals.DegreeToRadian(equipedItems[i].rotation), equipedItems[i].orgin, 1.0f, SpriteEffects.None, 0);
             }
             spriteBatch.Draw(spritesheet, new Vector2(0, 0), new Rectangle(123, 213, 123, 213), Color.White);
         }

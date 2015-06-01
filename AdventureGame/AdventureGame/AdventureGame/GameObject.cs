@@ -26,6 +26,9 @@ namespace AdventureGame
 
         public byte direction;
 
+        public sbyte health;
+        public sbyte maxHealth;
+
         public short animationCount;
         public short maxAnimationCount;
         public short currentFrame;

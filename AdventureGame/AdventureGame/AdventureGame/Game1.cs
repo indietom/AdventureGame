@@ -35,6 +35,8 @@ namespace AdventureGame
         {
             camera = new Camera();
             gameObjectsToAdd.Add(new Player());
+            gameObjectsToAdd.Add(new Loot(new Vector2(20, 64), 2));
+            gameObjectsToAdd.Add(new BasicMonster(new Vector2(100, 100)));
             base.Initialize();
         }
 

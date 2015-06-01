@@ -31,6 +31,8 @@ namespace AdventureGame
         {
             Load(path);
             orgin = new Vector2(OrginalSize.X / 2, OrginalSize.Y / 2);
+            scale = 1;
+            color = Color.White;
         }
 
         public void Load(string path)
@@ -92,11 +94,34 @@ namespace AdventureGame
         public virtual void Use()
         {
             durabilityCount = 1;
+            useDelayCount = 1;
             size = OrginalSize;
+        }
+
+        public override void Update()
+        {
+            if (UseType == UseType.Melee)
+            {
+                foreach (Enemy e in Game1.gameObjects.Where(item => item is Enemy))
+                {
+                    if (e.HitBox().Intersects(HitBox()) && size.X > 0)
+                    {
+                        if(e.hitCount <= 0)
+                        {
+                            e.health -= damege;
+                        }
+                        e.hitCount = 1;
+                    }
+                }
+            }
+            base.Update();
         }
 
         public virtual void UpdateDraw()
         {
+            if (useDelayCount >= 1) useDelayCount += 1;
+            if (useDelayCount >= useDelay) useDelayCount = 0;
+
             if(durabilityCount >= 1)
             {
                 durabilityCount += 1;
@@ -105,30 +130,30 @@ namespace AdventureGame
 
             if (durabilityCount <= 0) SetSize(0);
 
-            foreach (GameObject gm in Game1.gameObjects.Where(item => item is Player))
+            foreach (Player p in Game1.gameObjects.Where(item => item is Player))
             {
-                if(gm.direction == 0)
+                if(p.direction == 0)
                 {
-                    if (size.Y == 16) pos = gm.pos + new Vector2(-size.X / 2, size.Y) + gm.Vel();
-                    else pos = gm.pos + new Vector2(-size.X / 2, size.Y/2 + 16 - orgin.X/2) + gm.Vel();
+                    if (size.Y == 16) pos = p.pos + new Vector2(-size.X / 2, size.Y) + p.Vel();
+                    else pos = p.pos + new Vector2(-size.X / 2, size.Y/2 + 16 - orgin.X/2) + p.Vel();
                     rotation = -180;
                 }
-                else if(gm.direction == 1)
+                else if(p.direction == 1)
                 {
-                    if (size.Y == 16) pos = gm.pos + new Vector2(32 + size.X / 2, size.Y) + gm.Vel();
-                    else pos = gm.pos + new Vector2(32 + size.X / 2, size.Y / 2 + 16 - orgin.X / 2) + gm.Vel();
+                    if (size.Y == 16) pos = p.pos + new Vector2(32 + size.X / 2, size.Y) + p.Vel();
+                    else pos = p.pos + new Vector2(32 + size.X / 2, size.Y / 2 + 16 - orgin.X / 2) + p.Vel();
                     rotation = 0;
                 }
-                else if(gm.direction == 2)
+                else if(p.direction == 2)
                 {
-                    if (size.Y == 16) pos = gm.pos + new Vector2(16 - 2, -size.Y / 2) + gm.Vel();
-                    else pos = gm.pos + new Vector2(size.X, -size.Y) + gm.Vel();
+                    if (size.Y == 16) pos = p.pos + new Vector2(16 - 2, -size.Y / 2) + p.Vel();
+                    else pos = p.pos + new Vector2(size.X-orgin.X/2, -size.Y-4) + p.Vel();
                     rotation = -90;
                 }
-                else if(gm.direction == 3)
+                else if(p.direction == 3)
                 {
-                    if (size.Y == 16) pos = gm.pos + new Vector2(16, size.Y / 2 + 32) + gm.Vel();
-                    else pos = gm.pos + new Vector2(size.X, 32 + size.Y) + gm.Vel();
+                    if (size.Y == 16) pos = p.pos + new Vector2(16, size.Y / 2 + 32) + p.Vel();
+                    else pos = p.pos + new Vector2(size.X - orgin.X / 2, 32 + size.Y+4) + p.Vel();
                     rotation = -270;
                 }
             }
