@@ -23,6 +23,16 @@ namespace AdventureGame
 
         public override void Update()
         {
+            foreach (Projectile p in Game1.gameObjects.Where(item => item is Projectile))
+            {
+                if(p.HitBox().Intersects(HitBox()))
+                {
+                    velX = p.velX/15;
+                    velY = p.velY/15;
+                    p.destroy = true;
+                }
+            }
+
             foreach (Player p in Game1.gameObjects.Where(item => item is Player))
             {
                 Rectangle toTileHitBox = new Rectangle((int)((p.pos.X+7) + p.velX), (int)((p.pos.Y+2) + p.velY), 19, 30);
@@ -44,6 +54,7 @@ namespace AdventureGame
                     velY = p.velY*1.5f;
                 }
             }
+
             pos += Vel();
 
             velX *= weight;

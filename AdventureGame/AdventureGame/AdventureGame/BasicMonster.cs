@@ -33,7 +33,6 @@ namespace AdventureGame
                 spriteEffect = SpriteEffects.None;
 
             RandomMovment();
-
             HealthUpdate();
             HitUpdate();
             base.Update();

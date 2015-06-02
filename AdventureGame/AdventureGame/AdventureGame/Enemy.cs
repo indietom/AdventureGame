@@ -13,6 +13,9 @@ namespace AdventureGame
         public byte damege;
         public byte firerate;
         public byte maxFirerate;
+        public byte burstInterval;
+        public byte amountOfBurstIntervals;
+        public byte shootType;
 
         public short turnCount;
         public short maxTurnCount;
@@ -20,12 +23,52 @@ namespace AdventureGame
         public short maxHitCount;
 
         public float orginalSpeed;
+        public float shootAngle;
+        public float shootSpeed;
+
+        public Vector2 shootPos;
 
         public bool aggro;
+        public bool burstShoot;
         public bool hasDeathAnimation;
 
         public byte chanceOfLoot;
         public byte typeOfLoot;
+
+        public void ShootUpdate()
+        {
+            if(aggro)
+            {
+                firerate += 1;
+                if(!burstShoot)
+                {
+                    if(firerate >= maxFirerate)
+                    {
+                        Game1.gameObjectsToAdd.Add(GetProjectile());
+                        firerate = 0;
+                    }
+                }
+                else
+                {
+                    for(int i = 0; i < amountOfBurstIntervals; i++)
+                    {
+                        if(firerate == maxFirerate - burstInterval*i)
+                        {
+                            Game1.gameObjectsToAdd.Add(GetProjectile());
+                        }
+                    }
+                    if(firerate >= maxFirerate)
+                    {
+                        firerate = 0;
+                    }
+                }
+            }
+        }
+
+        public Projectile GetProjectile()
+        {
+            return new Projectile(pos + shootPos, shootSpeed, shootAngle, damege, shootType, true);
+        }
 
         public void HealthUpdate()
         {
