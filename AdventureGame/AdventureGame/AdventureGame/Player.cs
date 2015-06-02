@@ -11,10 +11,12 @@ namespace AdventureGame
 {
     class Player : GameObject
     {
-        float friction;
+        public float friction;
+        public float OrginalFriction { get; private set; } 
 
         bool dead;
         bool inputActive;
+        public bool moving;
 
         short hitCount;
         short maxHitCount;
@@ -34,6 +36,7 @@ namespace AdventureGame
             color = Color.White;
             scale = 1f;
             friction = 0.7f;
+            OrginalFriction = friction;
             speed = 2;
             maxAnimationCount = 4;
             maxFrame = 4;
@@ -76,9 +79,11 @@ namespace AdventureGame
             if(keyboard.IsKeyDown(Keys.Left) || keyboard.IsKeyDown(Keys.Right) || keyboard.IsKeyDown(Keys.Down) || keyboard.IsKeyDown(Keys.Up))
             {
                 animationCount += 1;
+                moving = true;
             }
             if(!keyboard.IsKeyDown(Keys.Left) && !keyboard.IsKeyDown(Keys.Right) && !keyboard.IsKeyDown(Keys.Up) && !keyboard.IsKeyDown(Keys.Down))
             {
+                moving = false;
                 animationCount = 0;
                 currentFrame = 0;
             }
@@ -100,6 +105,15 @@ namespace AdventureGame
                 pos.X += velX;
             if (velY >= 0.2f || velY <= -0.2f)
                 pos.Y += velY;
+
+            if (velY >= 0.2f || velY <= -0.2f || velX >= 0.2f || velX <= -0.2f)
+            {
+                //moving = true;
+            }
+            else
+            {
+                //moving = false;
+            }
 
             velX *= friction;
             velY *= friction;
@@ -170,7 +184,7 @@ namespace AdventureGame
             {
                 equipedItems[i].DrawSprite(spriteBatch, spritesheet);
             }
-            spriteBatch.Draw(spritesheet, new Vector2(0, 0), new Rectangle(123, 213, 123, 213), Color.White);
+            spriteBatch.Draw(spritesheet, new Vector2(300, 0), new Rectangle(123, 213, 123, 213), Color.White);
         }
     }
 }
