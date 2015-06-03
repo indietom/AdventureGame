@@ -10,6 +10,9 @@ namespace AdventureGame
     {
         byte type;
         byte damege;
+        byte orginalDamege;
+
+        short animationOffset;
 
         bool enemy;
 
@@ -37,11 +40,26 @@ namespace AdventureGame
             AngleMath();
             pos += Vel();
 
+            if (maxFrame != 0)
+            {
+                SetSpriteCoords(Frame(currentFrame, size.X) + animationOffset, spriteCoords.Y);
+                Animate();
+                animationCount += 1;
+            }
+
             foreach (Enemy e in Game1.gameObjects.Where(item => item is Enemy))
             {
                 if (e.HitBox().Intersects(HitBox()) && !enemy)
                 {
                     e.Hit((sbyte)damege);
+                    destroy = true;
+                }
+            }
+
+            if (type == 1)
+            {
+                if (currentFrame >= maxFrame - 1)
+                {
                     destroy = true;
                 }
             }
@@ -56,6 +74,15 @@ namespace AdventureGame
                 case 0:
                     SetSpriteCoords(232, 1);
                     SetSize(8);
+                    break;
+                case 1:
+                    SetSize(32);
+
+                    minFrame = 7;
+                    maxFrame = 17;
+                    currentFrame = minFrame;
+                    SetSpriteCoords(Frame(currentFrame), 100);
+                    maxAnimationCount = 4;
                     break;
             }
 

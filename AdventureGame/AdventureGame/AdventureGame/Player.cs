@@ -25,6 +25,7 @@ namespace AdventureGame
 
         public byte mana;
         public byte maxMana;
+        public byte amountOfBombs;
 
         KeyboardState keyboard;
         KeyboardState prevKeyboard;
@@ -46,7 +47,7 @@ namespace AdventureGame
             inputActive = true;
             maxHealth = 4;
             maxHitCount = 32;
-            amountOfArrows = 5;
+            amountOfArrows = 50;
             equipedItems[0] = new EquipableItem("test.txt");
             equipedItems[1] = new EquipableItem("test.txt");
         }

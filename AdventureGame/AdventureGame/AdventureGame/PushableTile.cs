@@ -33,6 +33,17 @@ namespace AdventureGame
                 }
             }
 
+            foreach (Bomb b in Game1.gameObjects.Where(item => item is Bomb))
+            {
+                Rectangle toTileHitBox = new Rectangle((int)(b.pos.X + b.velX), (int)(b.pos.Y + b.velY), b.size.X/2, b.size.Y/2);
+                if (toTileHitBox.Intersects(HitBox()))
+                {
+                    b.velX = 0;
+                    b.velY = 0;
+                    b.speed = 0;
+                }
+            }
+
             foreach (Player p in Game1.gameObjects.Where(item => item is Player))
             {
                 Rectangle toTileHitBox = new Rectangle((int)((p.pos.X+7) + p.velX), (int)((p.pos.Y+2) + p.velY), 19, 30);

@@ -97,7 +97,7 @@ namespace AdventureGame
 
         public Rectangle HitBox()
         {
-            return new Rectangle((int)(pos.X + orgin.X), (int)(pos.Y + orgin.Y), size.X * (int)scale, size.X * (int)scale);
+            return new Rectangle((int)(pos.X - orgin.X), (int)(pos.Y - orgin.Y), size.X * (int)scale, size.X * (int)scale);
         }
 
         public void SetSpriteCoords(int x2, int y2)
