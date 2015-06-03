@@ -40,6 +40,18 @@ namespace AdventureGame
                     {
                        p.money += 10;
                     }
+                    if(type == 2)
+                    {
+                        p.amountOfArrows += 5;
+                    }
+                    if(type == 3)
+                    {
+
+                    }
+                    if(type == 4)
+                    {
+                        p.mana += 1;
+                    }
                     destroy = true;
                 }
             }

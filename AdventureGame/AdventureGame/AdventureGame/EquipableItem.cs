@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace AdventureGame
 {
-    enum UseType { Melee, Distance, Magic }
+    enum UseType { Melee, Distance, Magic, Bomb }
 
     class EquipableItem : GameObject
     {
@@ -64,6 +64,10 @@ namespace AdventureGame
                         else if (currentLine.Split(':')[1] == "distance")
                         {
                             UseType = UseType.Distance;
+                        }
+                        else if(currentLine.Split(':')[1] == "bomb")
+                        {
+                            UseType = UseType.Bomb;
                         }
                         else
                         {
@@ -161,10 +165,15 @@ namespace AdventureGame
                     else pos = p.pos + new Vector2(size.X - orgin.X / 2, 32 + size.Y+4) + p.Vel();
                     rotation = -270;
                 }
-            }
-            if ((UseType == UseType.Distance || UseType == UseType.Magic) && durabilityCount == 2)
-            {
-                Game1.gameObjectsToAdd.Add(new Projectile(pos, projectileSpeed, rotation, (byte)damege, projectileType, false));
+                if ((UseType == UseType.Distance || UseType == UseType.Magic) && durabilityCount == 2)
+                {
+                    if (UseType == UseType.Distance && p.amountOfArrows >= 1 || UseType == UseType.Magic && p.mana >= 1)
+                    {
+                        if (UseType == UseType.Distance) p.amountOfArrows -= 1;
+                        else p.mana -= 1;
+                        Game1.gameObjectsToAdd.Add(new Projectile(pos, projectileSpeed, rotation, (byte)damege, projectileType, false));
+                    }
+                }
             }
         }
     }

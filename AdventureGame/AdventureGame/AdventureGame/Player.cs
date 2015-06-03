@@ -20,8 +20,11 @@ namespace AdventureGame
 
         short hitCount;
         short maxHitCount;
-
+        public short amountOfArrows;
         public short money;
+
+        public byte mana;
+        public byte maxMana;
 
         KeyboardState keyboard;
         KeyboardState prevKeyboard;
@@ -43,6 +46,7 @@ namespace AdventureGame
             inputActive = true;
             maxHealth = 4;
             maxHitCount = 32;
+            amountOfArrows = 5;
             equipedItems[0] = new EquipableItem("test.txt");
             equipedItems[1] = new EquipableItem("test.txt");
         }
@@ -105,15 +109,6 @@ namespace AdventureGame
                 pos.X += velX;
             if (velY >= 0.2f || velY <= -0.2f)
                 pos.Y += velY;
-
-            if (velY >= 0.2f || velY <= -0.2f || velX >= 0.2f || velX <= -0.2f)
-            {
-                //moving = true;
-            }
-            else
-            {
-                //moving = false;
-            }
 
             velX *= friction;
             velY *= friction;

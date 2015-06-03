@@ -35,6 +35,8 @@ namespace AdventureGame
         public byte chanceOfLoot;
         public byte typeOfLoot;
 
+        public bool flying;
+
         public void ShootUpdate()
         {
             if(aggro)
