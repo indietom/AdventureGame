@@ -27,9 +27,8 @@ namespace AdventureGame
             scale = 1f;
             color = color2;
 
-            AssignSprite();
-
             SetSize(explosionsSize2);
+            AssignSprite();
         }
 
         public override void Update()
@@ -40,27 +39,32 @@ namespace AdventureGame
 
             animationCount += 1;
 
-            if(currentFrame - 1 >= maxFrame)
+            if(currentFrame >= maxFrame-1)
             {
                 destroy = true;
             }
 
-            foreach (Player p in Game1.gameObjects.Where(item => item is Player))
+            if (dangerous)
             {
-                if (p.HitBox().Intersects(HitBox()))
+                foreach (Player p in Game1.gameObjects.Where(item => item is Player))
                 {
-                    p.health = 0;
+                    if (p.HitBox().Intersects(HitBox()))
+                    {
+                        p.health = 0;
+                    }
+                }
+
+                if (!enemy)
+                {
+                    foreach (Enemy e in Game1.gameObjects.Where(item => item is Enemy))
+                    {
+                        if (e.HitBox().Intersects(HitBox()))
+                        {
+                            e.health = 0;
+                        }
+                    }
                 }
             }
-
-            if(!enemy)
-            {
-                foreach (Enemy e in Game1.gameObjects.Where(item => item is Enemy))
-                {
-                    e.health = 0;
-                }
-            }
-
             base.Update();
         }
 
@@ -70,7 +74,7 @@ namespace AdventureGame
             {
                 case 32:
                     minFrame = 7;
-                    maxFrame = 12;
+                    maxFrame = 13;
                     currentFrame = minFrame;
 
                     SetSpriteCoords(Frame(currentFrame), 166);

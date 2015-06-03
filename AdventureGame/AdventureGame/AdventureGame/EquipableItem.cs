@@ -165,6 +165,10 @@ namespace AdventureGame
                     else pos = p.pos + new Vector2(size.X - orgin.X / 2, 32 + size.Y+4) + p.Vel();
                     rotation = -270;
                 }
+                if (UseType == UseType.Bomb && durabilityCount == 2)
+                {
+                    Game1.gameObjectsToAdd.Add(new Bomb(pos, 32, rotation, 2, 0.4f, (byte)(16*damege), false));
+                }
                 if ((UseType == UseType.Distance || UseType == UseType.Magic) && durabilityCount == 2)
                 {
                     if (UseType == UseType.Distance && p.amountOfArrows >= 1 || UseType == UseType.Magic && p.mana >= 1)
