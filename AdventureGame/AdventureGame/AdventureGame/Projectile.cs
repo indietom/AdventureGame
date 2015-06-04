@@ -35,8 +35,6 @@ namespace AdventureGame
 
         public override void Update()
         {
-            rotation = angle;
-
             AngleMath();
             pos += Vel();
 
@@ -56,12 +54,19 @@ namespace AdventureGame
                 }
             }
 
+            if (type == 0)
+            {
+                rotation = angle;
+            }
+
             if (type == 1)
             {
                 if (currentFrame >= maxFrame - 1)
                 {
                     destroy = true;
                 }
+
+                rotation += speed;
             }
 
             base.Update();

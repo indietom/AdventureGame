@@ -54,9 +54,6 @@ namespace AdventureGame
 
         void Input()
         {
-            prevKeyboard = keyboard;
-            keyboard = Keyboard.GetState();
-
             if(keyboard.IsKeyDown(Keys.Left))
             {
                 velX -= speed;
@@ -93,12 +90,12 @@ namespace AdventureGame
                 currentFrame = 0;
             }
 
-            if (keyboard.IsKeyDown(Keys.X) && !prevKeyboard.IsKeyDown(Keys.X) && equipedItems[0].useDelayCount <= 0 && equipedItems[1].useDelayCount <= 0)
+            if (keyboard.IsKeyDown(Keys.X) && !prevKeyboard.IsKeyDown(Keys.X) && equipedItems[0].UseDelayCount <= 0 && equipedItems[1].UseDelayCount <= 0)
             {
                 equipedItems[0].Use();
             }
 
-            if (keyboard.IsKeyDown(Keys.Z) && !prevKeyboard.IsKeyDown(Keys.Z) && equipedItems[0].useDelayCount <= 0 && equipedItems[1].useDelayCount <= 0)
+            if (keyboard.IsKeyDown(Keys.Z) && !prevKeyboard.IsKeyDown(Keys.Z) && equipedItems[0].UseDelayCount <= 0 && equipedItems[1].UseDelayCount <= 0)
             {
                 equipedItems[1].Use();
             }
@@ -142,6 +139,9 @@ namespace AdventureGame
 
         public override void Update()
         {
+            prevKeyboard = keyboard;
+            keyboard = Keyboard.GetState();
+
             Game1.camera.LerpToTarget(pos + new Vector2(16, 16), 0.3f);
 
             Animate();
@@ -155,12 +155,12 @@ namespace AdventureGame
 
             for (int i = 0; i < equipedItems.Count(); i++)
             {
-                if(equipedItems[i].durabilityCount >= 1)
+                if(equipedItems[i].DurabilityCount >= 1)
                 {
                     inputActive = false;
                     currentFrame = 4;
                 }
-                if(equipedItems[i].durabilityCount >= equipedItems[i].durability-1)
+                if(equipedItems[i].DurabilityCount >= equipedItems[i].Durability-1)
                 {
                     inputActive = true;
                 }

@@ -19,16 +19,16 @@ namespace AdventureGame
         public Point IconSpirteCoords { private set; get; }
         public Point OrginalSize { private set; get; }
 
-        public sbyte damege;
+        public sbyte Damege { private set; get; }
         
-        public byte useDelayCount;
-        public byte useDelay;
-        public byte projectileType;
+        public byte UseDelayCount { private set; get; }
+        public byte UseDelay { private set; get; }
+        public byte ProjectileType { private set; get; }
 
-        public short durabilityCount;
-        public short durability;
+        public short DurabilityCount { private set; get; }
+        public short Durability { private set; get; }
 
-        public float projectileSpeed;
+        public float ProjectileSpeed { private set; get; }
 
         public EquipableItem(string path)
         {
@@ -81,22 +81,22 @@ namespace AdventureGame
                         OrginalSize = new Point(Convert.ToInt32(currentLine.Split(':')[1]), Convert.ToInt32(currentLine.Split(':')[2]));
                         break;
                     case "h":
-                        damege = sbyte.Parse(currentLine.Split(':')[1]);
+                        Damege = sbyte.Parse(currentLine.Split(':')[1]);
                         break;
                     case "s":
-                        useDelay = byte.Parse(currentLine.Split(':')[1]);
+                        UseDelay = byte.Parse(currentLine.Split(':')[1]);
                         break;
                     case "r":
-                        durability = short.Parse(currentLine.Split(':')[1]);
+                        Durability = short.Parse(currentLine.Split(':')[1]);
                         break;
                     case "p":
                         spriteCoords = new Point(Convert.ToInt32(currentLine.Split(':')[1]), Convert.ToInt32(currentLine.Split(':')[2]));
                         break;
                     case "t":
-                        projectileType = byte.Parse(currentLine.Split(':')[1]);
+                        ProjectileType = byte.Parse(currentLine.Split(':')[1]);
                         break;
                     case "j":
-                        projectileSpeed = float.Parse(currentLine.Split(':')[1]);
+                        ProjectileSpeed = float.Parse(currentLine.Split(':')[1]);
                         break;
                 }
                 
@@ -106,8 +106,8 @@ namespace AdventureGame
 
         public virtual void Use()
         {
-            durabilityCount = 1;
-            useDelayCount = 1;
+            DurabilityCount = 1;
+            UseDelayCount = 1;
             size = OrginalSize;
         }
 
@@ -119,7 +119,7 @@ namespace AdventureGame
                 {
                     if (e.HitBox().Intersects(HitBox()) && size.X > 0)
                     {
-                        e.Hit(damege);
+                        e.Hit(Damege);
                     }
                 }
             }
@@ -128,16 +128,16 @@ namespace AdventureGame
 
         public virtual void UpdateDraw()
         {
-            if (useDelayCount >= 1) useDelayCount += 1;
-            if (useDelayCount >= useDelay) useDelayCount = 0;
+            if (UseDelayCount >= 1) UseDelayCount += 1;
+            if (UseDelayCount >= UseDelay) UseDelayCount = 0;
 
-            if(durabilityCount >= 1)
+            if(DurabilityCount >= 1)
             {
-                durabilityCount += 1;
-                durabilityCount = (durabilityCount >= durability) ? (short)0 : durabilityCount;
+                DurabilityCount += 1;
+                DurabilityCount = (DurabilityCount >= Durability) ? (short)0 : DurabilityCount;
             }
 
-            if (durabilityCount <= 0) SetSize(0);
+            if (DurabilityCount <= 0) SetSize(0);
 
             foreach (Player p in Game1.gameObjects.Where(item => item is Player))
             {
@@ -165,18 +165,18 @@ namespace AdventureGame
                     else pos = p.pos + new Vector2(size.X - orgin.X / 2, 32 + size.Y+4) + p.Vel();
                     rotation = -270;
                 }
-                if (UseType == UseType.Bomb && durabilityCount == 2 && p.amountOfBombs >= 1)
+                if (UseType == UseType.Bomb && DurabilityCount == 2 && p.amountOfBombs >= 1)
                 {
                     p.amountOfBombs -= 1;
-                    Game1.gameObjectsToAdd.Add(new Bomb(pos, 32, rotation, 2, 0.4f, (byte)(16*damege), false));
+                    Game1.gameObjectsToAdd.Add(new Bomb(pos, 32, rotation, 2, 0.4f, (byte)(16*Damege), false));
                 }
-                if ((UseType == UseType.Distance || UseType == UseType.Magic) && durabilityCount == 2)
+                if ((UseType == UseType.Distance || UseType == UseType.Magic) && DurabilityCount == 2)
                 {
                     if (UseType == UseType.Distance && p.amountOfArrows >= 1 || UseType == UseType.Magic && p.mana >= 1)
                     {
                         if (UseType == UseType.Distance) p.amountOfArrows -= 1;
                         else p.mana -= 1;
-                        Game1.gameObjectsToAdd.Add(new Projectile(pos, projectileSpeed, rotation, (byte)damege, projectileType, false));
+                        Game1.gameObjectsToAdd.Add(new Projectile(pos, ProjectileSpeed, rotation, (byte)Damege, ProjectileType, false));
                     }
                 }
             }
