@@ -15,7 +15,7 @@ namespace AdventureGame
         public float OrginalFriction { get; private set; } 
 
         bool dead;
-        bool inputActive;
+        public bool inputActive;
         public bool moving;
 
         short hitCount;

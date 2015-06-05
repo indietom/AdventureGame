@@ -34,8 +34,8 @@ namespace AdventureGame
 
         protected override void Initialize()
         {
+            AssetManager.Load(Content);
             camera = new Camera();
-            Gui.textBoxes.Add(new TextBox(new Vector2(0, 0), "test", "TESTTESTTESTTEST TESTTESTTEST TEST TEST TEST TEST TESTTE STTESTTEST TESTTEST TESTTES TTESTTEST TESTTESTTEST TEST TEST TEST TEST TESTTESTT ESTTESTTES TTEST", 1));
             gameObjectsToAdd.Add(new Player());
             gameObjectsToAdd.Add(new Loot(new Vector2(20, 64), 2));
             gameObjectsToAdd.Add(new BasicMonster(new Vector2(100, 100)));
@@ -43,13 +43,9 @@ namespace AdventureGame
             base.Initialize();
         }
 
-        Texture2D spritesheet;
-
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            spritesheet = Content.Load<Texture2D>("spritesheet");
-            AssetManager.Load(Content);
         }
 
         protected override void UnloadContent()
@@ -90,7 +86,7 @@ namespace AdventureGame
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, camera.GetTransform(GraphicsDevice));
             foreach(GameObject gm in gameObjects)
             {
-                gm.DrawSprite(spriteBatch, spritesheet);
+                gm.DrawSprite(spriteBatch, AssetManager.spritesheet);
             }
             spriteBatch.End();
 

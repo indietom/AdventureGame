@@ -12,10 +12,14 @@ namespace AdventureGame
     {
         public static SpriteFont smallFont, bigFont;
 
+        public static Texture2D spritesheet;
+
         public static void Load(ContentManager content)
         {
             bigFont = content.Load<SpriteFont>("BigFont");
             smallFont = content.Load<SpriteFont>("SmallFont");
+
+            spritesheet = content.Load<Texture2D>("spritesheet");
         }
     }
 }

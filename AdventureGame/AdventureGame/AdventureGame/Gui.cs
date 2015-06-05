@@ -18,6 +18,11 @@ namespace AdventureGame
             {
                 t.Update();
             }
+
+            for (int i = textBoxes.Count - 1; i >= 0; i--)
+            {
+                if (textBoxes[i].destroy) textBoxes.RemoveAt(i);
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
