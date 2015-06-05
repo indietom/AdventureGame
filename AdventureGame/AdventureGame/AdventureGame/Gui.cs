@@ -10,6 +10,22 @@ namespace AdventureGame
 {
     class Gui
     {
-        List<TextBox> textBoxes;
+        internal static List<TextBox> textBoxes = new List<TextBox>();
+
+        public void Update()
+        {
+            foreach (TextBox t in textBoxes)
+            {
+                t.Update();
+            }
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            foreach(TextBox t in textBoxes)
+            {
+                t.Draw(spriteBatch);
+            }
+        }
     }
 }

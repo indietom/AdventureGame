@@ -14,7 +14,8 @@ namespace AdventureGame
 
         public static void Load(ContentManager content)
         {
-
+            bigFont = content.Load<SpriteFont>("BigFont");
+            smallFont = content.Load<SpriteFont>("SmallFont");
         }
     }
 }
