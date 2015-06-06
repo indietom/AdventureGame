@@ -29,6 +29,9 @@ namespace AdventureGame
         public short Durability { private set; get; }
 
         public float ProjectileSpeed { private set; get; }
+        public float iconScale = 1;
+
+        public Color iconColor = Color.White;
 
         public EquipableItem(string path)
         {

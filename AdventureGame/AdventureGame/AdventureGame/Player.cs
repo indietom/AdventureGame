@@ -32,7 +32,7 @@ namespace AdventureGame
         KeyboardState keyboard;
         KeyboardState prevKeyboard;
 
-        EquipableItem[] equipedItems = new EquipableItem[2];
+        public EquipableItem[] equipedItems = new EquipableItem[2];
 
         public Player()
         {
@@ -100,6 +100,11 @@ namespace AdventureGame
             if (keyboard.IsKeyDown(Keys.Z) && !prevKeyboard.IsKeyDown(Keys.Z) && equipedItems[0].UseDelayCount <= 0 && equipedItems[1].UseDelayCount <= 0 && !cantShoot)
             {
                 equipedItems[1].Use();
+            }
+
+            if (keyboard.IsKeyDown(Keys.Q) && !prevKeyboard.IsKeyDown(Keys.Q))
+            {
+                Gui.inventory.active = true;
             }
 
             foreach (Character c in Game1.gameObjects.Where(item => item is Character))

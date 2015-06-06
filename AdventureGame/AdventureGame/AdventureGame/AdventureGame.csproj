@@ -86,6 +86,7 @@
     <Compile Include="GameObject.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="Gui.cs" />
+    <Compile Include="Inventory.cs" />
     <Compile Include="Loot.cs" />
     <Compile Include="Character.cs" />
     <Compile Include="Player.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="PushableTile.cs" />
+    <Compile Include="Shop.cs" />
     <Compile Include="TextBox.cs" />
   </ItemGroup>
   <ItemGroup>

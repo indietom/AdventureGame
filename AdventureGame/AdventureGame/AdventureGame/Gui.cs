@@ -11,6 +11,7 @@ namespace AdventureGame
     class Gui
     {
         internal static List<TextBox> textBoxes = new List<TextBox>();
+        internal static Inventory inventory = new Inventory();
 
         public void Update()
         {
@@ -23,10 +24,12 @@ namespace AdventureGame
             {
                 if (textBoxes[i].destroy) textBoxes.RemoveAt(i);
             }
+            inventory.Update();
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            inventory.Draw(spriteBatch);
             foreach(TextBox t in textBoxes)
             {
                 t.Draw(spriteBatch);
