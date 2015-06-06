@@ -94,6 +94,35 @@ namespace AdventureGame
 
             if(speed > 0) turnCount += 1;
 
+            foreach (PushableTile p in Game1.gameObjects.Where(item => item is PushableTile))
+            {
+                if (p.HitBox().Intersects(HitBox()))
+                {
+                    pos += new Vector2(p.velX, p.velY);
+                }
+
+                if(p.HitBox().Intersects(new Rectangle((int)pos.X, (int)(pos.Y-speed), 32, 32)))
+                {
+                    direction = 3;
+                    turnCount = 0;
+                }
+                if (p.HitBox().Intersects(new Rectangle((int)pos.X, (int)(pos.Y + speed), 32, 32)))
+                {
+                    direction = 2;
+                    turnCount = 0;
+                }
+                if (p.HitBox().Intersects(new Rectangle((int)(pos.X+speed), (int)pos.Y, 32, 32)))
+                {
+                    direction = 1;
+                    turnCount = 0;
+                }
+                if (p.HitBox().Intersects(new Rectangle((int)(pos.X - speed), (int)pos.Y, 32, 32)))
+                {
+                    direction = 0;
+                    turnCount = 0;
+                }
+            }
+
             if(turnCount >= maxTurnCount)
             {
                 direction = (byte)random.Next(0, 4);

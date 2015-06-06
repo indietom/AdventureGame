@@ -63,7 +63,11 @@ namespace AdventureGame
                 else
                 {
                     destroy = true;
-                    foreach (Player p in Game1.gameObjects.Where(item => item is Player)) p.inputActive = true;
+                    foreach (Player p in Game1.gameObjects.Where(item => item is Player))
+                    {
+                        p.inputActive = true;
+                        p.inputDelay = 1;
+                    }
                 }
             }
 

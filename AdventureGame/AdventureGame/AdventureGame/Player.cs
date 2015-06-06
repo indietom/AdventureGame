@@ -17,6 +17,7 @@ namespace AdventureGame
         bool dead;
         public bool inputActive;
         public bool moving;
+        public bool cantShoot;
 
         short hitCount;
         short maxHitCount;
@@ -24,6 +25,7 @@ namespace AdventureGame
         public short money;
 
         public byte mana;
+        public byte inputDelay;
         public byte maxMana;
         public byte amountOfBombs;
 
@@ -90,14 +92,22 @@ namespace AdventureGame
                 currentFrame = 0;
             }
 
-            if (keyboard.IsKeyDown(Keys.X) && !prevKeyboard.IsKeyDown(Keys.X) && equipedItems[0].UseDelayCount <= 0 && equipedItems[1].UseDelayCount <= 0)
+            if (keyboard.IsKeyDown(Keys.X) && !prevKeyboard.IsKeyDown(Keys.X) && equipedItems[0].UseDelayCount <= 0 && equipedItems[1].UseDelayCount <= 0 && !cantShoot)
             {
                 equipedItems[0].Use();
             }
 
-            if (keyboard.IsKeyDown(Keys.Z) && !prevKeyboard.IsKeyDown(Keys.Z) && equipedItems[0].UseDelayCount <= 0 && equipedItems[1].UseDelayCount <= 0)
+            if (keyboard.IsKeyDown(Keys.Z) && !prevKeyboard.IsKeyDown(Keys.Z) && equipedItems[0].UseDelayCount <= 0 && equipedItems[1].UseDelayCount <= 0 && !cantShoot)
             {
                 equipedItems[1].Use();
+            }
+
+            foreach (Character c in Game1.gameObjects.Where(item => item is Character))
+            {
+                if(c.HitBox().Intersects(HitBox()) && keyboard.IsKeyDown(Keys.X) && !prevKeyboard.IsKeyDown(Keys.X))
+                {
+                    c.PopTextBox();
+                }
             }
         }
 
@@ -144,6 +154,18 @@ namespace AdventureGame
 
             Game1.camera.LerpToTarget(pos + new Vector2(16, 16), 0.3f);
 
+            foreach (Character c in Game1.gameObjects.Where(item => item is Character))
+            {
+                if (c.HitBox().Intersects(HitBox()))
+                {
+                    cantShoot = true;
+                }
+                else
+                {
+                    cantShoot = false;
+                }
+            }
+
             Animate();
             if (!dead) SetSpriteCoords(Frame(currentFrame), Frame(direction));
 
@@ -167,8 +189,14 @@ namespace AdventureGame
             }
 
             Movment();
-            if (inputActive) Input();
+            if (inputActive && inputDelay <= 0) Input();
             HealthUpdate();
+
+            if (inputDelay >= 1)
+            {
+                inputDelay += 1;
+                if (inputDelay >= 4) inputDelay = 0;
+            }
 
             base.Update();
         }
