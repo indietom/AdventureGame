@@ -16,6 +16,7 @@ namespace AdventureGame
         Vector2 pos;
 
         public bool active;
+        public bool full;
 
         Point currentSelect;
 
@@ -30,9 +31,12 @@ namespace AdventureGame
 
             pos = new Vector2(16, 70);
 
-            for (int i = 0; i < 5; i++)
+            // just test, ingnore
+            for (int i = 0; i < 17; i++)
             {
-                items[random.Next(items.GetLength(0) - 1), random.Next(items.GetLength(1) - 1)] = new EquipableItem("test2.txt");
+                if (GetNextEmptyCell() != new Point(-1, -1)) full = false;
+                else full = true;
+                AddItem(new EquipableItem("test.txt"));
             }
 
             items[2, 1] = new EquipableItem("test.txt");
@@ -47,6 +51,12 @@ namespace AdventureGame
             {
                 foreach (Player p in Game1.gameObjects.Where(item => item is Player))
                 {
+                    if (keyboard.IsKeyDown(Keys.C) && !prevKeyboard.IsKeyDown(Keys.C))
+                    {
+                        Game1.gameObjectsToAdd.Add(new ItemLoot(p.pos + new Vector2(16, 16), items[currentSelect.X, currentSelect.Y]));
+                        items[currentSelect.X, currentSelect.Y] = null;
+                    }
+
                     if (keyboard.IsKeyDown(Keys.X) && !prevKeyboard.IsKeyDown(Keys.X))
                     {
                         if (items[currentSelect.X, currentSelect.Y].Name != p.equipedItems[1].Name)
@@ -94,6 +104,9 @@ namespace AdventureGame
 
         public void Update()
         {
+            if (GetNextEmptyCell() != new Point(-1, -1)) full = false;
+            else full = true;
+
             if (active)
             {
                 foreach (Player p in Game1.gameObjects.Where(item => item is Player))
@@ -167,6 +180,28 @@ namespace AdventureGame
                     spritebatch.DrawString(AssetManager.smallFont, items[currentSelect.X, currentSelect.Y].Description, pos + new Vector2(0, 300), Color.White);
                 }
             }
+        }
+
+        public void AddItem(EquipableItem item)
+        {
+            if(!full) items[GetNextEmptyCell().X, GetNextEmptyCell().Y] = item;
+        }
+
+        public Point GetNextEmptyCell()
+        {
+
+            for (int y = 0; y < items.GetLength(1); y++)
+            {
+                for (int x = 0; x < items.GetLength(0); x++)
+                {
+                    if (items[x, y] == null)
+                    {
+                        return new Point(x, y);
+                    }
+                }
+            }
+
+            return new Point(-1, -1);
         }
     }
 }

@@ -169,7 +169,7 @@ namespace AdventureGame
                 }
                 else
                 {
-                    cantShoot = false;
+                    if(DistanceTo(c.pos) >= 32) cantShoot = false;
                 }
             }
 

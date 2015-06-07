@@ -97,6 +97,7 @@
     <Compile Include="PushableTile.cs" />
     <Compile Include="Shop.cs" />
     <Compile Include="TextBox.cs" />
+    <Compile Include="ItemLoot.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

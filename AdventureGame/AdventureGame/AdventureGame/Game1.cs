@@ -41,6 +41,10 @@ namespace AdventureGame
             gameObjectsToAdd.Add(new BasicMonster(new Vector2(100, 100)));
             gameObjectsToAdd.Add(new PushableTile(new Vector2(100, 100), new Point(1, 430), new Point(32, 32), 0.9f));
             gameObjectsToAdd.Add(new Character(new Vector2(300, 300), "ayy", "this is a test", new Point(1, 166)));
+            gameObjectsToAdd.Add(new ItemLoot(new Vector2(-50, -50), new EquipableItem("test.txt")));
+            gameObjectsToAdd.Add(new ItemLoot(new Vector2(50, -50), new EquipableItem("test2.txt")));
+            gameObjectsToAdd.Add(new ItemLoot(new Vector2(150, -50), new EquipableItem("test2.txt")));
+            gameObjectsToAdd.Add(new ItemLoot(new Vector2(25, -50), new EquipableItem("test2.txt")));
             base.Initialize();
         }
 
