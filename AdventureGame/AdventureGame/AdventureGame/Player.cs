@@ -48,6 +48,7 @@ namespace AdventureGame
             maxFrame = 4;
             inputActive = true;
             maxHealth = 4;
+            health = maxHealth;
             maxHitCount = 32;
             amountOfArrows = 50;
             equipedItems[0] = new EquipableItem("test.txt");
@@ -105,6 +106,7 @@ namespace AdventureGame
             if (keyboard.IsKeyDown(Keys.Q) && !prevKeyboard.IsKeyDown(Keys.Q))
             {
                 Gui.inventory.active = true;
+                Gui.inventory.delay = 1;
             }
 
             foreach (Character c in Game1.gameObjects.Where(item => item is Character))
