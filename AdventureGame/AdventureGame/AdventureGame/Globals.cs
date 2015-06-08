@@ -9,6 +9,7 @@ namespace AdventureGame
     class Globals
     {
         public static byte maxTypesOfLoot = 5;
+        public static byte amountOfTilesets = 1;
 
         public static float Lerp(float s, float e, float t)
         {

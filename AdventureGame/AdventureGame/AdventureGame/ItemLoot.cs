@@ -42,7 +42,7 @@ namespace AdventureGame
             {
                 if (p.HitBox().Intersects(HitBox()))
                 {
-                    if (keyboard.IsKeyDown(Keys.X) && !Gui.inventory.full)
+                    if (keyboard.IsKeyDown(Keys.X) && !Gui.inventory.full && !Gui.inventory.active)
                     {
                         Gui.inventory.AddItem(equipableItem);
                         destroy = true;

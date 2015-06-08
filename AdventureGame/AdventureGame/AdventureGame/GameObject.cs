@@ -41,6 +41,8 @@ namespace AdventureGame
 
         public bool destroy;
 
+        public Texture2D texture = AssetManager.spritesheet;
+
         public int Frame(int cell)
         {
             return 32 * cell + cell + 1;
@@ -56,9 +58,9 @@ namespace AdventureGame
             if (destroy) Game1.gameObjectsToRemove.Add(this);
         }
 
-        public virtual void DrawSprite(SpriteBatch spriteBatch, Texture2D spritesheet)
+        public virtual void DrawSprite(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(spritesheet, pos, new Rectangle(spriteCoords.X, spriteCoords.Y, size.X, size.Y), color, Globals.DegreeToRadian(rotation), orgin, scale, spriteEffect, depth);
+            spriteBatch.Draw(texture, pos, new Rectangle(spriteCoords.X, spriteCoords.Y, size.X, size.Y), color, Globals.DegreeToRadian(rotation), orgin, scale, spriteEffect, depth);
         }
 
         public void Animate()

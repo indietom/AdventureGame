@@ -39,12 +39,19 @@ namespace AdventureGame
             gameObjectsToAdd.Add(new Player());
             gameObjectsToAdd.Add(new Loot(new Vector2(20, 64), 2));
             gameObjectsToAdd.Add(new BasicMonster(new Vector2(100, 100)));
-            gameObjectsToAdd.Add(new PushableTile(new Vector2(100, 100), new Point(1, 430), new Point(32, 32), 0.9f));
+            gameObjectsToAdd.Add(new PushableTile(new Vector2(100, 100), new Point(1, 430), new Point(32, 32), 0.4f));
             gameObjectsToAdd.Add(new Character(new Vector2(300, 300), "ayy", "this is a test", new Point(1, 166)));
             gameObjectsToAdd.Add(new ItemLoot(new Vector2(-50, -50), new EquipableItem("test.txt")));
             gameObjectsToAdd.Add(new ItemLoot(new Vector2(50, -50), new EquipableItem("test2.txt")));
             gameObjectsToAdd.Add(new ItemLoot(new Vector2(150, -50), new EquipableItem("test2.txt")));
             gameObjectsToAdd.Add(new ItemLoot(new Vector2(25, -50), new EquipableItem("test2.txt")));
+
+            for (int i = 0; i < 5; i++)
+            {
+                gameObjectsToAdd.Add(new Tile(new Vector2(-120-i*16, 0), 1, true));
+                gameObjectsToAdd.Add(new Tile(new Vector2(-120, -i * 16), 3, false)); 
+            }
+
             base.Initialize();
         }
 
@@ -91,7 +98,7 @@ namespace AdventureGame
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, camera.GetTransform(GraphicsDevice));
             foreach(GameObject gm in gameObjects)
             {
-                gm.DrawSprite(spriteBatch, AssetManager.spritesheet);
+                gm.DrawSprite(spriteBatch);
             }
             spriteBatch.End();
 

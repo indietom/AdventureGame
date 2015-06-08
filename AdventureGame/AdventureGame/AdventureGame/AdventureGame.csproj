@@ -87,6 +87,7 @@
     <Compile Include="Globals.cs" />
     <Compile Include="Gui.cs" />
     <Compile Include="Inventory.cs" />
+    <Compile Include="Level.cs" />
     <Compile Include="Loot.cs" />
     <Compile Include="Character.cs" />
     <Compile Include="Player.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="Shop.cs" />
     <Compile Include="TextBox.cs" />
     <Compile Include="ItemLoot.cs" />
+    <Compile Include="Tile.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

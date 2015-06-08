@@ -27,19 +27,7 @@ namespace AdventureGame
 
         public Inventory()
         {
-            Random random = new Random();
-
             pos = new Vector2(16, 70);
-
-            // just test, ingnore
-            for (int i = 0; i < 17; i++)
-            {
-                if (GetNextEmptyCell() != new Point(-1, -1)) full = false;
-                else full = true;
-                AddItem(new EquipableItem("test.txt"));
-            }
-
-            items[2, 1] = new EquipableItem("test.txt");
         }
 
         public void Input()

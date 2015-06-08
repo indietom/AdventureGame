@@ -19,6 +19,11 @@ namespace AdventureGame
         public bool moving;
         public bool cantShoot;
 
+        bool cantWalkLeft;
+        bool cantWalkRight;
+        bool cantWalkUp;
+        bool cantWalkDown;
+
         short hitCount;
         short maxHitCount;
         public short amountOfArrows;
@@ -57,25 +62,25 @@ namespace AdventureGame
 
         void Input()
         {
-            if(keyboard.IsKeyDown(Keys.Left))
+            if(keyboard.IsKeyDown(Keys.Left) && !cantWalkLeft)
             {
                 velX -= speed;
                 direction = 0;
             }
 
-            if(keyboard.IsKeyDown(Keys.Right))
+            if (keyboard.IsKeyDown(Keys.Right) && !cantWalkRight)
             {
                 velX += speed;
                 direction = 1;
             }
 
-            if (keyboard.IsKeyDown(Keys.Up))
+            if (keyboard.IsKeyDown(Keys.Up) && !cantWalkUp)
             {
                 velY -= speed;
                 direction = 2;
             }
 
-            if (keyboard.IsKeyDown(Keys.Down))
+            if (keyboard.IsKeyDown(Keys.Down) && !cantWalkDown)
             {
                 velY += speed;
                 direction = 3;
@@ -154,12 +159,42 @@ namespace AdventureGame
             }
         }
 
+        public bool TileCollision(Rectangle hitBox)
+        {
+            foreach(Tile t in Game1.gameObjects.Where(item => item is Tile))
+            {
+                if (t.active && t.solid)
+                {
+                    if(hitBox.Intersects(t.HitBox()))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public void TileCollisionUpdate()
+        {
+            if (TileCollision(new Rectangle((int)(pos.X +velX), (int)pos.Y, 32, 32)))
+            {
+                pos.X -= velX;
+            }
+
+            if (TileCollision(new Rectangle((int)pos.X, (int)(pos.Y + velY), 32, 32)))
+            {
+                pos.Y -= velY;
+            }
+        }
+
         public override void Update()
         {
             prevKeyboard = keyboard;
             keyboard = Keyboard.GetState();
 
             Game1.camera.LerpToTarget(pos + new Vector2(16, 16), 0.3f);
+
+            TileCollisionUpdate();
 
             foreach (Character c in Game1.gameObjects.Where(item => item is Character))
             {
@@ -208,14 +243,14 @@ namespace AdventureGame
             base.Update();
         }
 
-        public override void DrawSprite(SpriteBatch spriteBatch, Texture2D spritesheet)
+        public override void DrawSprite(SpriteBatch spriteBatch)
         {
-            base.DrawSprite(spriteBatch, spritesheet);
+            base.DrawSprite(spriteBatch);
             for (int i = 0; i < equipedItems.Count(); i++)
             {
-                equipedItems[i].DrawSprite(spriteBatch, spritesheet);
+                equipedItems[i].DrawSprite(spriteBatch);
             }
-            spriteBatch.Draw(spritesheet, new Vector2(300, 0), new Rectangle(123, 213, 123, 213), Color.White);
+            spriteBatch.Draw(AssetManager.spritesheet, new Vector2(300, 0), new Rectangle(123, 213, 123, 213), Color.White);
         }
     }
 }
