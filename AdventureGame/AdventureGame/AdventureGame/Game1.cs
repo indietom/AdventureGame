@@ -45,6 +45,7 @@ namespace AdventureGame
             gameObjectsToAdd.Add(new ItemLoot(new Vector2(50, -50), new EquipableItem("test2.txt")));
             gameObjectsToAdd.Add(new ItemLoot(new Vector2(150, -50), new EquipableItem("test2.txt")));
             gameObjectsToAdd.Add(new ItemLoot(new Vector2(25, -50), new EquipableItem("test2.txt")));
+            gameObjectsToAdd.Add(new Chest(new Vector2(100, -50), false, new GameObject[] {new Tile(new Vector2(0, 0), 1, false)}));
 
             for (int i = 0; i < 5; i++)
             {
