@@ -45,6 +45,17 @@ namespace AdventureGame
                 animationCount += 1;
             }
 
+            foreach (Tile t in Game1.gameObjects.Where(item => item is Tile))
+            {
+                if (t.active && t.solid)
+                {
+                    if(t.HitBox().Intersects(HitBox()))
+                    {
+                        destroy = true;
+                    }
+                }
+            }
+
             foreach (Enemy e in Game1.gameObjects.Where(item => item is Enemy))
             {
                 if (e.HitBox().Intersects(HitBox()) && !enemy)

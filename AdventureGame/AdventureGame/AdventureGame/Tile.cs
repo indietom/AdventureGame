@@ -38,6 +38,7 @@ namespace AdventureGame
             {
                 if (size.X != 0) SetSize(0);
             }
+            base.Update();
         }
     }
 }
