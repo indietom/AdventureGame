@@ -154,10 +154,41 @@ namespace AdventureGame
             {
                 if(e.HitBox().Intersects(HitBox()) && hitCount <= 0)
                 {
+                    e.hitCount = 1;
                     hitCount = 1;
                     health -= 1;
                 }
             }
+
+            dead = (health <= 0) ? true : false;
+
+            if (health <= 0) health = 0;
+
+            if (dead)
+            {
+                hitCount = 0;
+
+                maxFrame = 7;
+
+                inputActive = false;
+
+                if (currentFrame < maxFrame - 1) animationCount += 1;
+                SetSpriteCoords(Frame(currentFrame), Frame(4));
+                maxAnimationCount = 8;
+            }
+            
+        }
+
+        public void Respawn()
+        {
+            health = maxHealth;
+           
+            maxAnimationCount = 4;
+            maxFrame = 4;
+
+            inputActive = true;
+
+            //TODO: Send player to villege, maybe take some of his money as penelty
         }
 
         public bool TileCollision(Rectangle hitBox, short type)
@@ -193,6 +224,8 @@ namespace AdventureGame
             prevKeyboard = keyboard;
             keyboard = Keyboard.GetState();
 
+            if (keyboard.IsKeyDown(Keys.Space)) Respawn();
+
             Game1.camera.LerpToTarget(pos + new Vector2(16, 16), 0.3f);
 
             TileCollisionUpdate();
@@ -205,7 +238,7 @@ namespace AdventureGame
                 }
                 else
                 {
-                    if(DistanceTo(c.pos) >= 32) cantShoot = false;
+                    if(DistanceTo(c.pos, false) >= 32) cantShoot = false;
                 }
             }
 

@@ -32,25 +32,26 @@ namespace AdventureGame
             {
                 if(p.HitBox().Intersects(HitBox()))
                 {
-                    if(type == 0 && p.health + 1 != p.maxHealth+1)
+                    switch (type)
                     {
-                        p.health += 1;
-                    }
-                    if(type == 1)
-                    {
-                       p.money += 10;
-                    }
-                    if(type == 2)
-                    {
-                        p.amountOfArrows += 5;
-                    }
-                    if(type == 3)
-                    {
-
-                    }
-                    if(type == 4)
-                    {
-                        p.mana += 1;
+                        case 0:
+                            if (p.health + 1 != p.maxHealth + 1) p.health += 1;
+                            break;
+                        case 1:
+                            p.money += 10;
+                            break;
+                        case 2:
+                            p.amountOfArrows += 5;
+                            break;
+                        case 3:
+                            p.amountOfBombs += 1;
+                            break;
+                        case 4:
+                            p.mana += 1;
+                            break;
+                        case 5:
+                            p.amountOfKeys += 1;
+                            break;
                     }
                     destroy = true;
                 }

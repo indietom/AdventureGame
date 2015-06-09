@@ -57,7 +57,12 @@ namespace AdventureGame
                     spriteBatch.Draw(AssetManager.spritesheet, topBar + new Vector2(96 + 75 + 16 + i * 32, 0), new Rectangle(232, 67, 24, 24), Color.White);
                 }
                 spriteBatch.Draw(AssetManager.spritesheet, topBar + new Vector2((187 + 32 * p.maxHealth) + 16, 0), new Rectangle(207, 67, 24, 24), Color.White);
+                spriteBatch.Draw(AssetManager.spritesheet, topBar + new Vector2((187 + 32 * p.maxHealth) + 16 + 64+16, 0), new Rectangle(182, 67, 24, 24), Color.White);
+                spriteBatch.Draw(AssetManager.spritesheet, topBar + new Vector2((187 + 32 * p.maxHealth) + 16, 32), new Rectangle(182, 92, 24, 24), Color.White);
+
                 spriteBatch.DrawString(AssetManager.bigFont, "x" + p.amountOfArrows.ToString(), topBar + new Vector2((187 + 32 * p.maxHealth) + 40, 0), Color.White);
+                spriteBatch.DrawString(AssetManager.bigFont, "x" + p.amountOfBombs.ToString(), topBar + new Vector2((187 + 32 * p.maxHealth) + 40, 32), Color.White);
+                spriteBatch.DrawString(AssetManager.bigFont, "x" + p.amountOfKeys.ToString(), topBar + new Vector2((187 + 32 * p.maxHealth) + 40 + 64+16, 0), Color.White);
             }
         }
 

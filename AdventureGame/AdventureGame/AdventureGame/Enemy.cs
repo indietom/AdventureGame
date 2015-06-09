@@ -164,13 +164,25 @@ namespace AdventureGame
             {
                 hitCount += 1;
                 color = Color.Red;
+
+                foreach (Player p in Game1.gameObjects.Where(item => item is Player))
+                {
+                    AngleMath();
+                    angle = Globals.RadianToDegree(GetAimAngle(p.GetCenter(), true));
+                    speed = 3;
+                    pos -= Vel();
+                    Console.WriteLine(GetAimAngle(p.GetCenter(), true));
+                }
             }
 
-            if(hitCount >= maxHitCount)
+            foreach (Player p in Game1.gameObjects.Where(item => item is Player))
             {
-                color = Color.White;
-                hitCount = 0;
-                speed = orginalSpeed;
+                if (hitCount >= maxHitCount && DistanceTo(p.GetCenter(), true) >= size.X+1)
+                {
+                    color = Color.White;
+                    hitCount = 0;
+                    speed = orginalSpeed;
+                }
             }
             if(hitCount <= 0)
             {
@@ -178,8 +190,7 @@ namespace AdventureGame
             }
             else
             {
-                speed = 0;
-                scale = Globals.Lerp(scale, 1.1f, 0.07f);
+                scale = Globals.Lerp(scale, 1.0f, 0.07f);
             }
         }
     }

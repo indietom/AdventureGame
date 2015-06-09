@@ -27,14 +27,14 @@ namespace AdventureGame
             scale = 1f;
             color = Color.White;
             SetSize(24);
-            SetSpriteCoords(364, Frame(Convert.ToInt16(locked)));
+            SetSpriteCoords(440, Frame(Convert.ToInt16(locked), 24));
         }
 
         public override void Update()
         {
             if (opened)
             {
-                SetSpriteCoords(363 + Frame(1, 24), spriteCoords.Y);
+                SetSpriteCoords(439 + Frame(1, 24), spriteCoords.Y);
 
                 if (!hasSpawned)
                 {
@@ -58,7 +58,7 @@ namespace AdventureGame
                             opened = true;
                         }
 
-                        if (locked && p.amountOfKeys > 1)
+                        if (locked && p.amountOfKeys >= 1)
                         {
                             opened = true;
                             p.amountOfKeys -= 1;

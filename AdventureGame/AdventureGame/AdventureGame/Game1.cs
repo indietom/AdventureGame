@@ -38,7 +38,7 @@ namespace AdventureGame
             AssetManager.Load(Content);
             camera = new Camera();
             gameObjectsToAdd.Add(new Player());
-            gameObjectsToAdd.Add(new Loot(new Vector2(20, 64), 2));
+            gameObjectsToAdd.Add(new Loot(new Vector2(20, 64), 5));
             gameObjectsToAdd.Add(new BasicMonster(new Vector2(100, 100)));
             gameObjectsToAdd.Add(new PushableTile(new Vector2(100, 100), new Point(1, 430), new Point(32, 32), 0.4f));
             gameObjectsToAdd.Add(new Character(new Vector2(300, 300), "ayy", "this is a test", new Point(1, 166)));
@@ -46,7 +46,7 @@ namespace AdventureGame
             gameObjectsToAdd.Add(new ItemLoot(new Vector2(50, -50), new EquipableItem("test2.txt")));
             gameObjectsToAdd.Add(new ItemLoot(new Vector2(150, -50), new EquipableItem("test2.txt")));
             gameObjectsToAdd.Add(new ItemLoot(new Vector2(25, -50), new EquipableItem("test2.txt")));
-            gameObjectsToAdd.Add(new Chest(new Vector2(100, -50), false, new GameObject[] {new Tile(new Vector2(0, 0), 1, false)}));
+            gameObjectsToAdd.Add(new Chest(new Vector2(100, -50), true, new GameObject[] {new Tile(new Vector2(0, 0), 1, false)}));
 
             levelManager.StartLevel("maptest");
 

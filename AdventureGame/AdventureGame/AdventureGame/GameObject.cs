@@ -13,6 +13,18 @@ namespace AdventureGame
         public Vector2 pos;
         public Vector2 orgin;
 
+        public Vector2 GetCenter()
+        {
+            if (orgin == Vector2.Zero)
+            {
+                return new Vector2(pos.X + size.X / 2, pos.Y + size.Y / 2);
+            }
+            else
+            {
+                return orgin;
+            }
+        }
+
         public Point spriteCoords;
         public Point size;
 
@@ -82,14 +94,16 @@ namespace AdventureGame
             velY = ((float)Math.Sin(Globals.DegreeToRadian(angle)) * speed);
         }
 
-        public float DistanceTo(Vector2 target)
+        public float DistanceTo(Vector2 target, bool fromCenter)
         {
-            return (float)Math.Sqrt((pos.X - target.X) * (pos.X - target.X) + (pos.X - target.Y) * (pos.X - target.Y));
+            Vector2 objectPos = (fromCenter) ? GetCenter() : pos;
+            return (float)Math.Sqrt((objectPos.X - target.X) * (objectPos.X - target.X) + (objectPos.Y - target.Y) * (objectPos.Y - target.Y));
         }
 
-        public float GetAimAngle(Vector2 target)
+        public float GetAimAngle(Vector2 target, bool fromCenter)
         {
-            return (float)Math.Atan2(target.Y - pos.Y, target.X - pos.X);
+            Vector2 objectPos = (fromCenter) ? GetCenter() : pos;
+            return (float)Math.Atan2(target.Y - objectPos.Y, target.X - objectPos.X);
         }
 
         public Vector2 Vel()
