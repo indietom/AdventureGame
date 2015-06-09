@@ -14,14 +14,33 @@ namespace AdventureGame
         public int[,] map;
         public int[,] mapCollision;
 
-        public void StartLevel()
+        public void StartLevel(string path)
         {
+            ClearLevel();
 
+            map = LoadLevelFile(path);
+            mapCollision = LoadLevelFile(path+"C");
+
+            for (int y = 0; y < map.GetLength(1); y++)
+            {
+                for (int x = 0; x < map.GetLength(0); x++)
+                {
+                    if (map[x, y] != 0) Game1.gameObjectsToAdd.Add(new Tile(new Vector2(y * 16, x * 16), (short)map[x, y], false));
+                    if (mapCollision[x, y] != 0) Game1.gameObjectsToAdd.Add(new Tile(new Vector2(y * 16, x * 16), (short)mapCollision[x, y], true));
+                }
+            }
+
+            map = null;
+            mapCollision = null;
         }
 
         public void ClearLevel()
         {
-
+            foreach (GameObject g in Game1.gameObjects)
+            {
+                if (g is Player == false)
+                    Game1.gameObjectsToRemove.Add(g);
+            }
         }
 
         public void LoadObjectLayer()

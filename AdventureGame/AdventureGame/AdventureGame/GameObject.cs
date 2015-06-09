@@ -22,7 +22,7 @@ namespace AdventureGame
         public float velY;
         public float speed;
         public float rotation;
-        public float depth;
+        public float depth = 0.1f;
 
         public byte direction;
 

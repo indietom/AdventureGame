@@ -25,6 +25,7 @@ namespace AdventureGame
 
         internal static Camera camera;
         internal static Gui gui = new Gui();
+        internal static LevelManager levelManager = new LevelManager();
 
         internal static List<GameObject> gameObjects = new List<GameObject>();
         internal static List<GameObject> gameObjectsToRemove = new List<GameObject>();
@@ -47,11 +48,7 @@ namespace AdventureGame
             gameObjectsToAdd.Add(new ItemLoot(new Vector2(25, -50), new EquipableItem("test2.txt")));
             gameObjectsToAdd.Add(new Chest(new Vector2(100, -50), false, new GameObject[] {new Tile(new Vector2(0, 0), 1, false)}));
 
-            for (int i = 0; i < 5; i++)
-            {
-                gameObjectsToAdd.Add(new Tile(new Vector2(-120-i*16, 0), 1, true));
-                gameObjectsToAdd.Add(new Tile(new Vector2(-120, -i * 16), 3, false)); 
-            }
+            levelManager.StartLevel("maptest");
 
             base.Initialize();
         }
@@ -96,7 +93,7 @@ namespace AdventureGame
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, camera.GetTransform(GraphicsDevice));
+            spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, camera.GetTransform(GraphicsDevice));
             foreach(GameObject gm in gameObjects)
             {
                 gm.DrawSprite(spriteBatch);

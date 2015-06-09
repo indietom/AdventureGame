@@ -11,6 +11,8 @@ namespace AdventureGame
     {
         public Vector2 pos;
 
+        public Vector2 Corner { get { return new Vector2(pos.X - 320, pos.Y - 240); } }
+
         public float rotation;
         public float zoom;
 

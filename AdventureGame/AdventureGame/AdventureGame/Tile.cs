@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace AdventureGame
 {
@@ -25,6 +26,8 @@ namespace AdventureGame
             scale = 1.0f;
             color = Color.White;
 
+            depth = 0;
+
             active = true;
         }
 
@@ -32,13 +35,18 @@ namespace AdventureGame
         {
             if (active)
             {
-                if (size.X != 16) SetSize(16);
+
             }
             else
             {
-                if (size.X != 0) SetSize(0);
+
             }
             base.Update();
+        }
+
+        public override void DrawSprite(SpriteBatch spriteBatch)
+        {
+            if(!solid && active) base.DrawSprite(spriteBatch);
         }
     }
 }

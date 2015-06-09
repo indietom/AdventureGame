@@ -57,6 +57,12 @@ namespace AdventureGame
                         {
                             opened = true;
                         }
+
+                        if (locked && p.amountOfKeys > 1)
+                        {
+                            opened = true;
+                            p.amountOfKeys -= 1;
+                        }
                     }
                 }
             }

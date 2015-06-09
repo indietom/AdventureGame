@@ -29,6 +29,7 @@ namespace AdventureGame
         public short amountOfArrows;
         public short money;
 
+        public byte amountOfKeys;
         public byte mana;
         public byte inputDelay;
         public byte maxMana;
@@ -159,11 +160,11 @@ namespace AdventureGame
             }
         }
 
-        public bool TileCollision(Rectangle hitBox)
+        public bool TileCollision(Rectangle hitBox, short type)
         {
             foreach(Tile t in Game1.gameObjects.Where(item => item is Tile))
             {
-                if (t.active && t.solid)
+                if (t.active && t.solid && type == t.currentFrame)
                 {
                     if(hitBox.Intersects(t.HitBox()))
                     {
@@ -176,12 +177,12 @@ namespace AdventureGame
 
         public void TileCollisionUpdate()
         {
-            if (TileCollision(new Rectangle((int)(pos.X +velX), (int)pos.Y, 32, 32)))
+            if (TileCollision(new Rectangle((int)(pos.X +velX), (int)pos.Y, 32, 32), 1))
             {
                 pos.X -= velX;
             }
 
-            if (TileCollision(new Rectangle((int)pos.X, (int)(pos.Y + velY), 32, 32)))
+            if (TileCollision(new Rectangle((int)pos.X, (int)(pos.Y + velY), 32, 32), 1))
             {
                 pos.Y -= velY;
             }
@@ -250,7 +251,6 @@ namespace AdventureGame
             {
                 equipedItems[i].DrawSprite(spriteBatch);
             }
-            spriteBatch.Draw(AssetManager.spritesheet, new Vector2(300, 0), new Rectangle(123, 213, 123, 213), Color.White);
         }
     }
 }

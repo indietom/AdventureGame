@@ -63,6 +63,10 @@ namespace AdventureGame
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            if (inventory.active)
+            {
+                spriteBatch.Draw(AssetManager.spritesheet, new Rectangle(0, 0, 320, 480), new Rectangle(1, 464, 130, 136), Color.Black);
+            }
             inventory.Draw(spriteBatch);
             foreach(TextBox t in textBoxes)
             {
