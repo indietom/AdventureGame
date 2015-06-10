@@ -12,6 +12,7 @@ namespace AdventureGame
     {
         internal static List<TextBox> textBoxes = new List<TextBox>();
         internal static Inventory inventory = new Inventory();
+        internal static Shop shop = new Shop();
 
         Vector2 topBar;
 
@@ -31,6 +32,8 @@ namespace AdventureGame
             {
                 if (textBoxes[i].destroy) textBoxes.RemoveAt(i);
             }
+
+            shop.Update();
             inventory.Update();
         }
 
@@ -68,11 +71,12 @@ namespace AdventureGame
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (inventory.active)
+            if (inventory.active || shop.active)
             {
                 spriteBatch.Draw(AssetManager.spritesheet, new Rectangle(0, 0, 320, 480), new Rectangle(1, 464, 130, 136), Color.Black);
             }
             inventory.Draw(spriteBatch);
+            shop.Draw(spriteBatch);
             foreach(TextBox t in textBoxes)
             {
                 t.Draw(spriteBatch);

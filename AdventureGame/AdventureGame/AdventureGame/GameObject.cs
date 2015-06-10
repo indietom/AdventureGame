@@ -106,6 +106,11 @@ namespace AdventureGame
             return (float)Math.Atan2(target.Y - objectPos.Y, target.X - objectPos.X);
         }
 
+        public float ZOrder()
+        {
+            return (GetCenter().Y / 1000 <= 0.01f) ? 0.01f : GetCenter().Y / 1000;
+        }
+
         public Vector2 Vel()
         {
             return new Vector2(velX, velY);

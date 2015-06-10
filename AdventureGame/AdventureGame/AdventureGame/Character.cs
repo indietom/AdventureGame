@@ -11,6 +11,8 @@ namespace AdventureGame
         public string name;
         public string text;
 
+        public Character() { }
+
         public Character(Vector2 pos2, string name2, string text2, Point spriteCoords2)
         {
             pos = pos2;
@@ -31,6 +33,7 @@ namespace AdventureGame
 
         public override void Update()
         {
+            depth = ZOrder();
             base.Update();
         }
     }

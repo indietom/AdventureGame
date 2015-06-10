@@ -17,7 +17,7 @@ namespace AdventureGame
 
         Color textColor;
 
-        string name;
+        public string Name { private set; get; }
         string displayText;
         string fullText;
 
@@ -35,8 +35,8 @@ namespace AdventureGame
         public TextBox(Vector2 pos2, string name2, string fullText2, short addInterval2)
         {
             pos = pos2;
-            name = name2;
-            fullText = name + ":\n" + ProccesText(fullText2);
+            Name = name2;
+            fullText = Name + ":\n" + ProccesText(fullText2);
             displayText = "";
             addInterval = addInterval2;
             windowSize = new Point((int)AssetManager.smallFont.MeasureString(fullText).X / 8, (int)AssetManager.smallFont.MeasureString(fullText).Y / 8); 
@@ -63,6 +63,11 @@ namespace AdventureGame
                 else
                 {
                     destroy = true;
+                    if (Name == "Shop Keeper")
+                    {
+                        Gui.shop.active = true;
+                        Gui.shop.delay = 1;
+                    }
                     foreach (Player p in Game1.gameObjects.Where(item => item is Player))
                     {
                         p.inputActive = true;

@@ -224,6 +224,8 @@ namespace AdventureGame
             prevKeyboard = keyboard;
             keyboard = Keyboard.GetState();
 
+            depth = ZOrder();
+
             if (keyboard.IsKeyDown(Keys.Space)) Respawn();
 
             Game1.camera.LerpToTarget(pos + new Vector2(16, 16), 0.3f);

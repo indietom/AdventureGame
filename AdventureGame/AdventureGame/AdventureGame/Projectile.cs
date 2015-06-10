@@ -35,6 +35,8 @@ namespace AdventureGame
 
         public override void Update()
         {
+            depth = ZOrder();
+
             AngleMath();
             pos += Vel();
 

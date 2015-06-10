@@ -8,8 +8,6 @@ namespace AdventureGame
 {
     abstract class Enemy : GameObject
     {
-        public sbyte health;
-
         public byte damege;
         public byte firerate;
         public byte maxFirerate;
@@ -70,6 +68,12 @@ namespace AdventureGame
         public Projectile GetProjectile()
         {
             return new Projectile(pos + shootPos, shootSpeed, shootAngle, damege, shootType, true);
+        }
+
+        public override void Update()
+        {
+            depth = ZOrder();
+            base.Update();
         }
 
         public void HealthUpdate()
@@ -171,7 +175,6 @@ namespace AdventureGame
                     angle = Globals.RadianToDegree(GetAimAngle(p.GetCenter(), true));
                     speed = 3;
                     pos -= Vel();
-                    Console.WriteLine(GetAimAngle(p.GetCenter(), true));
                 }
             }
 

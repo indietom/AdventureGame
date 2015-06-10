@@ -47,6 +47,7 @@ namespace AdventureGame
             gameObjectsToAdd.Add(new ItemLoot(new Vector2(150, -50), new EquipableItem("test2.txt")));
             gameObjectsToAdd.Add(new ItemLoot(new Vector2(25, -50), new EquipableItem("test2.txt")));
             gameObjectsToAdd.Add(new Chest(new Vector2(100, -50), true, new GameObject[] {new Tile(new Vector2(0, 0), 1, false)}));
+            gameObjectsToAdd.Add(new ShopKeeper(new Vector2(364, 300)));
 
             levelManager.StartLevel("maptest");
 

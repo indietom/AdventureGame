@@ -99,6 +99,7 @@
     <Compile Include="Game1.cs" />
     <Compile Include="PushableTile.cs" />
     <Compile Include="Shop.cs" />
+    <Compile Include="ShopKeeper.cs" />
     <Compile Include="TextBox.cs" />
     <Compile Include="ItemLoot.cs" />
     <Compile Include="Tile.cs" />

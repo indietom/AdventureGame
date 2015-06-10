@@ -32,6 +32,8 @@ namespace AdventureGame
 
         public override void Update()
         {
+            depth = ZOrder();
+
             if (opened)
             {
                 SetSpriteCoords(439 + Frame(1, 24), spriteCoords.Y);
